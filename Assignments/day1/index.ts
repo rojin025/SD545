@@ -36,3 +36,18 @@ const getNewArray = function (words: string[]): string[] {
 };
 
 console.log(getNewArray(["array", "word", "java", "Anguler"]));
+
+/**
+ * 3. Implement an arrow function with feature below:
+concat('hi', [1,2,3], ['Hello','world']) -> 
+return result: ['h', 'i', 1,2,3, 'Hello','world']
+ */
+
+const str1 = "hi";
+const arr = [1, 2, 3];
+const str = ["Hello", "world"];
+const foo = (str1: string, arr: number[], str: string[]) => {
+  return [...str1, ...arr, ...str];
+};
+
+console.log(foo(str1, arr, str));
