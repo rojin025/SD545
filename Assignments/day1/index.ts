@@ -10,11 +10,14 @@
         which are greater than 20.
  */
 function sum(numbers: number[]): number {
-  let totalSum = numbers.reduce((total, curr) => total + curr, 0);
+  let totalSum = numbers
+    .filter((number) => number > 20)
+    .reduce((total, curr) => total + curr, 0);
   return totalSum;
 }
 
-console.log(sum([1, 2, 3]));
+console.log(sum([10, 21, 30]));
+console.log(sum([10, 20, 30]));
 console.log(sum([]));
 
 /**
