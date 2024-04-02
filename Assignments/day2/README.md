@@ -7,8 +7,32 @@ Web Development 1
 Instructions
 
 1. How does JSX differ from HTML?
+   JSX( JavaScript Syntax Extension ) is a syntax extension for JavaScript.
+   Commonly used in React to Describe the
+
+   - Structure
+     Static component
+   - Elements
+     Dynamic component
+
+   - Use Case Building UI components in React.
+
+   Whereas HTML is Markup Language and is directly understood by browsers.
+   Commonly used for
+
+   Structure
+
+   - Static content defination.
+
+   - Use Case Creating web page
 
 2. Why is JSX used in React?
+   React applications can be written without JSX, but there are several advantages to using it:
+
+- Readability: JSX offers a familiar HTML-like syntax for describing UI components.
+
+- Component Composition: JSX allows you to write component structures that closely resemble the final UI layout.
+- Combines mark ups and logic: JSX combines markup and logic within a component, it keeps these concerns separate from the HTML in your main web page.
 
 3. Can you embed JavaScript expressions in JSX? If so, how?
 
