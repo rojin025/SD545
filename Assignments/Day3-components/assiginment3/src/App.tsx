@@ -8,10 +8,10 @@ import { ChangeEvent, useState } from "react";
 export function Counter() {
   const [counter, setCounter] = useState(0);
 
-  function increase() {
+  function handleIncrease() {
     setCounter(counter + 1);
   }
-  function decrease() {
+  function handleDecrease() {
     if (counter > 0) setCounter(counter - 1);
   }
 
@@ -19,8 +19,8 @@ export function Counter() {
     <div className="Counter">
       <h2>Counter: </h2>
       <h2>{counter}</h2>
-      <button onClick={increase}>Increase</button>
-      <button onClick={decrease}>Decrease</button>
+      <button onClick={handleIncrease}>Increase</button>
+      <button onClick={handleDecrease}>Decrease</button>
     </div>
   );
 }
@@ -38,7 +38,7 @@ export function TemperatureConverter() {
     setCelsius(Number(e.currentTarget.value));
   };
 
-  function celsiusToFahrenheit() {
+  function handleConverter() {
     const newFahrenheit = (celsius * 9) / 5 + 32;
     setFahrenheit(newFahrenheit);
   }
@@ -49,7 +49,7 @@ export function TemperatureConverter() {
       <h2>Temperature Converter</h2>
       <label id="">Enter Celsius: </label>
       <input value={celsius} onChange={handleChange} />{" "}
-      <button onClick={celsiusToFahrenheit}>Convert to Fahrenheit</button>
+      <button onClick={handleConverter}>Convert to Fahrenheit</button>
       <h2>Fahrenheit: {fahrenheit}</h2>
     </div>
   );
@@ -62,7 +62,7 @@ export function TemperatureConverter() {
 export function RandomNumGenerator() {
   const [randomNumber, setRandomNumber] = useState(0);
 
-  const randomNumberGenerator = () => {
+  const handleGenerator = () => {
     const newRandomNumber = Math.floor(Math.random() * 100) + 1;
     setRandomNumber(newRandomNumber);
   };
@@ -72,7 +72,7 @@ export function RandomNumGenerator() {
       <hr />
       <h2>RandomNumberGenerator </h2>
       <h2>{randomNumber}</h2>
-      <button onClick={randomNumberGenerator}>Random Number</button>
+      <button onClick={handleGenerator}>Random Number</button>
     </div>
   );
 }
