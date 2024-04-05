@@ -1,4 +1,8 @@
 import { useState, useRef } from "react";
+import classNames from "classnames";
+import _ from "lodash";
+import { v4 as uuidv4 } from "uuid";
+import dayjs from "dayjs";
 
 import "./App.scss";
 import avatar from "./images/bozai.png";
@@ -68,17 +72,6 @@ const user = {
   // username
   uname: "John",
 };
-const currentUser = {
-  rpid: 4,
-  user: {
-    uid: "30009257",
-    avatar: "",
-    uname: "John",
-  },
-  content: "",
-  ctime: Date.now(),
-  like: 2,
-};
 
 // Nav Tab
 const tabs = [
@@ -87,7 +80,6 @@ const tabs = [
 ];
 
 const App = () => {
-  // created datetime
   const [userList, setUserList] = useState<Comment[]>(defaultList);
   const [activeType, setActiveType] = useState("hot");
 
@@ -139,35 +131,33 @@ const App = () => {
     return <>{newUserList}</>;
   }
 
-  function handleTopComment() {
-    const topList = defaultList
-      .map((o) => ({ ...o }))
-      .sort((x, y) => y.like - x.like);
-
-    setUserList(topList);
-  }
-
-  function handleNewestComment() {
-    const newestCommentList = userList
-      .map((o) => ({ ...o }))
-      .sort((x, y) => {
-        const dateX = new Date(x.ctime);
-        const dateY = new Date(y.ctime);
-        return dateY.getTime() - dateX.getTime();
-      });
-    setUserList(newestCommentList);
-  }
-
   function handleDelete(rpid: number) {
+    console.log("Delete clicked");
     const updatedList = userList.filter((user) => user.rpid !== rpid);
     setUserList(updatedList);
   }
 
-  function handlePost() {
-    const content = userPostRef.current!.value;
-    const userNewPost = { ...currentUser, content };
-    console.log(userNewPost);
-    console.log({ ...userList, ...currentUser });
+  function handleNewComment() {
+    const newComment = {
+      rpid: Number(uuidv4()),
+      user,
+      content: userPostRef.current!.value,
+      ctime: dayjs(Date.now()).format("MM-DD HH:mm"),
+      like: 0,
+    };
+
+    setUserList([...userList, newComment]);
+    userPostRef.current!.value = "";
+    userPostRef.current!.focus();
+  }
+
+  function handeChangeActiveType(type: string) {
+    setActiveType(type);
+    if (type === "hot") {
+      setUserList(_.orderBy(userList, "like", "desc"));
+    } else {
+      setUserList(_.orderBy(userList, "ctime", "desc"));
+    }
   }
 
   return (
@@ -186,8 +176,10 @@ const App = () => {
               return (
                 <span
                   key={tab.type}
-                  className={`nav-item ${tab.type === activeType && "active"}`}
-                  onClick={() => setActiveType(tab.type)}
+                  className={classNames("nav-item", {
+                    active: tab.type === activeType,
+                  })}
+                  onClick={() => handeChangeActiveType(tab.type)}
                 >
                   {tab.text}
                 </span>
@@ -214,7 +206,7 @@ const App = () => {
               ref={userPostRef}
             />
             {/* post button */}
-            <div className="reply-box-send" onClick={handlePost}>
+            <div className="reply-box-send" onClick={handleNewComment}>
               <div className="send-text">post</div>
             </div>
           </div>
