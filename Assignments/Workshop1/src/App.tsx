@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import "./App.scss";
 import avatar from "./images/bozai.png";
@@ -68,6 +68,17 @@ const user = {
   // username
   uname: "John",
 };
+const currentUser = {
+  rpid: 4,
+  user: {
+    uid: "30009257",
+    avatar: "",
+    uname: "John",
+  },
+  content: "",
+  ctime: Date.now(),
+  like: 2,
+};
 
 // Nav Tab
 const tabs = [
@@ -78,6 +89,7 @@ const tabs = [
 const App = () => {
   // created datetime
   const [userList, setUserList] = useState<Comment[]>(defaultList);
+  const userPostRef = useRef<HTMLTextAreaElement | null>(null);
 
   function handleComment() {
     const newUserList = userList.map((user) => {
@@ -149,6 +161,18 @@ const App = () => {
     setUserList(updatedList);
   }
 
+  function handlePost() {
+    const content = userPostRef.current!.value;
+    const userNewPost = { ...currentUser, content };
+    console.log(userNewPost);
+    console.log({ ...userList, ...currentUser });
+    // setUserList({ ...userList, ...currentUser });
+    // const updatedList = userList
+    //   .map((o) => ({ ...o }))
+    //   .filter((user) => user.rpid !== rpid);
+    // setUserList(updatedList);
+  }
+
   return (
     <div className="app">
       {/* Nav Tab */}
@@ -185,9 +209,10 @@ const App = () => {
             <textarea
               className="reply-box-textarea"
               placeholder="tell something..."
+              ref={userPostRef}
             />
             {/* post button */}
-            <div className="reply-box-send">
+            <div className="reply-box-send" onClick={handlePost}>
               <div className="send-text">post</div>
             </div>
           </div>
