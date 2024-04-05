@@ -14,7 +14,7 @@ interface User {
 }
 
 interface Comment {
-  rpid: number;
+  rpid: number | any;
   user: User;
   content: string;
   ctime: string;
@@ -65,11 +65,8 @@ const defaultList = [
 
 // current logged in user info
 const user = {
-  // userid
   uid: "30009257",
-  // profile
   avatar,
-  // username
   uname: "John",
 };
 
@@ -131,7 +128,7 @@ const App = () => {
     return <>{newUserList}</>;
   }
 
-  function handleDelete(rpid: number) {
+  function handleDelete(rpid: any) {
     console.log("Delete clicked");
     const updatedList = userList.filter((user) => user.rpid !== rpid);
     setUserList(updatedList);
@@ -139,7 +136,7 @@ const App = () => {
 
   function handleNewComment() {
     const newComment = {
-      rpid: Number(uuidv4()),
+      rpid: uuidv4(),
       user,
       content: userPostRef.current!.value,
       ctime: dayjs(Date.now()).format("MM-DD HH:mm"),
