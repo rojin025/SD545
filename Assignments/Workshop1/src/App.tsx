@@ -98,14 +98,19 @@ const App = () => {
                 <div className="root-reply">
                   <span className="reply-content">{user.content}</span>
                   <div className="reply-info">
-                    {/* comment created time */}
                     <span className="reply-time">
                       {"2023-" + user.ctime.split(" ")[0]}
                     </span>
 
-                    {/* total likes */}
                     <span className="reply-time">Like:{user.like}</span>
-                    <span className="delete-btn">Delete</span>
+                    <span
+                      className="delete-btn"
+                      onClick={() => {
+                        handleDelete(user.rpid);
+                      }}
+                    >
+                      Delete
+                    </span>
                   </div>
                 </div>
               </div>
@@ -127,7 +132,7 @@ const App = () => {
   }
 
   function handleNewestComment() {
-    const newestCommentList = defaultList
+    const newestCommentList = userList
       .map((o) => ({ ...o }))
       .sort((x, y) => {
         const dateX = new Date(x.ctime);
@@ -135,6 +140,13 @@ const App = () => {
         return dateY.getTime() - dateX.getTime();
       });
     setUserList(newestCommentList);
+  }
+
+  function handleDelete(rpid: number) {
+    const updatedList = userList
+      .map((o) => ({ ...o }))
+      .filter((user) => user.rpid !== rpid);
+    setUserList(updatedList);
   }
 
   return (
