@@ -89,13 +89,15 @@ const tabs = [
 const App = () => {
   // created datetime
   const [userList, setUserList] = useState<Comment[]>(defaultList);
+  const [activeType, setActiveType] = useState("hot");
+
   const userPostRef = useRef<HTMLTextAreaElement | null>(null);
 
   function handleComment() {
-    const newUserList = userList.map((user) => {
+    const newUserList = userList.map((item) => {
       return (
         <>
-          <div className="reply-item" key={user.user.uid}>
+          <div className="reply-item" key={item.user.uid}>
             <div className="root-reply-avatar">
               <div className="bili-avatar">
                 <img className="bili-avatar-img" alt="" />
@@ -104,25 +106,27 @@ const App = () => {
             <div className="content-wrap">
               <div className="content-wrap">
                 <div className="user-info">
-                  <div className="user-name">{user.user.uname}</div>
+                  <div className="user-name">{item.user.uname}</div>
                 </div>
 
                 <div className="root-reply">
-                  <span className="reply-content">{user.content}</span>
+                  <span className="reply-content">{item.content}</span>
                   <div className="reply-info">
                     <span className="reply-time">
-                      {"2023-" + user.ctime.split(" ")[0]}
+                      {"2023-" + item.ctime.split(" ")[0]}
                     </span>
 
-                    <span className="reply-time">Like:{user.like}</span>
-                    <span
-                      className="delete-btn"
-                      onClick={() => {
-                        handleDelete(user.rpid);
-                      }}
-                    >
-                      Delete
-                    </span>
+                    <span className="reply-time">Like:{item.like}</span>
+                    {item.user.uid === user.uid && (
+                      <span
+                        className="delete-btn"
+                        onClick={() => {
+                          handleDelete(item.rpid);
+                        }}
+                      >
+                        Delete
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -155,9 +159,7 @@ const App = () => {
   }
 
   function handleDelete(rpid: number) {
-    const updatedList = userList
-      .map((o) => ({ ...o }))
-      .filter((user) => user.rpid !== rpid);
+    const updatedList = userList.filter((user) => user.rpid !== rpid);
     setUserList(updatedList);
   }
 
@@ -166,11 +168,6 @@ const App = () => {
     const userNewPost = { ...currentUser, content };
     console.log(userNewPost);
     console.log({ ...userList, ...currentUser });
-    // setUserList({ ...userList, ...currentUser });
-    // const updatedList = userList
-    //   .map((o) => ({ ...o }))
-    //   .filter((user) => user.rpid !== rpid);
-    // setUserList(updatedList);
   }
 
   return (
@@ -183,14 +180,19 @@ const App = () => {
             {/* Like */}
             <span className="total-reply">{10}</span>
           </li>
+
           <li className="nav-sort">
-            {/* highlight class name： active */}
-            <span className="nav-item" onClick={handleTopComment}>
-              Top
-            </span>
-            <span className="nav-item" onClick={handleNewestComment}>
-              Newest
-            </span>
+            {tabs.map((tab) => {
+              return (
+                <span
+                  key={tab.type}
+                  className={`nav-item ${tab.type === activeType && "active"}`}
+                  onClick={() => setActiveType(tab.type)}
+                >
+                  {tab.text}
+                </span>
+              );
+            })}
           </li>
         </ul>
       </div>
