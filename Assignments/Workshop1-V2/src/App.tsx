@@ -86,7 +86,7 @@ const App = () => {
     const newUserList = userList.map((item) => {
       return (
         <div className="reply-item" key={item.user.uid}>
-          <CommentComp key={item.rpid} comment={item} />
+          <Item key={item.rpid} comment={item} />
         </div>
       );
     });
@@ -98,7 +98,7 @@ const App = () => {
     comment: Comment;
   }
 
-  function CommentComp({ comment }: CommentProps) {
+  function Item({ comment }: CommentProps) {
     return (
       <>
         <div className="root-reply-avatar">
