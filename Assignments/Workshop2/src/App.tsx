@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import classNames from "classnames";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
@@ -77,10 +77,23 @@ const tabs = [
 ];
 
 const App = () => {
-  const [userList, setUserList] = useState<Comment[]>(defaultList);
+  const [userList, setUserList] = useState<Comment[]>([]);
   const [activeType, setActiveType] = useState("hot");
 
   const userPostRef = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    console.log("useEffect");
+
+    async function getDefaultList() {
+      console.log("Calling Get Data");
+      const res = await fetch("http://localhost:3004");
+      const data = await res.json();
+      setUserList(_.orderBy(data, "like", "desc"));
+      console.log(data);
+    }
+    getDefaultList();
+  }, []);
 
   function CommentList() {
     const newUserList = userList.map((item) => {
