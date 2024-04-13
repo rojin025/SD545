@@ -29,6 +29,8 @@ const initailData = {
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [total, setTotal] = useState(0);
+  const [finished, setFinished] = useState(0);
 
   useEffect(() => {
     async function getList() {
@@ -38,6 +40,8 @@ function App() {
       console.log(data);
     }
     getList();
+    calculateTotal();
+    calculateFinished();
   }, []);
 
   function handleAddTodo(newTodo: Todo) {
@@ -47,11 +51,16 @@ function App() {
     console.log("Completed");
     console.dir(e.target);
   }
-
   function handleDelete(id: number) {
     console.log("App - Deleting: ", id);
     setTodos(todos.filter((todo) => todo.id !== id));
     console.log("Deleting confirmed");
+  }
+  function calculateTotal() {
+    return todos.length;
+  }
+  function calculateFinished() {
+    return todos.filter((todo) => todo.done).length;
   }
 
   return (
@@ -64,7 +73,13 @@ function App() {
           onDelete={handleDelete}
           todos={todos}
         />
-        <Footer todos={todos} />
+        <Footer
+          calculateTotal={calculateTotal}
+          calculateFinished={calculateFinished}
+          total={total}
+          finished={finished}
+          todos={todos}
+        />
       </div>
     </div>
   );
