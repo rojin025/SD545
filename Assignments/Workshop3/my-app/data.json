@@ -13,7 +13,7 @@
     {
       "id": 3,
       "name": "sleep",
-      "done": false
+      "done": true
     }
   ]
 }

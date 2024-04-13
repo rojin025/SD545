@@ -1,6 +1,6 @@
 import { ChangeEvent, useState, useEffect } from "react";
+
 import Header from "./components/Header";
-import Item from "./components/Item";
 import List from "./components/List";
 import Footer from "./components/Footer";
 import "./App.css";
@@ -41,8 +41,17 @@ function App() {
   }, []);
 
   function handleAddTodo(newTodo: Todo) {
-    console.log("Added Todo List");
     setTodos([...todos, newTodo]);
+  }
+  function handleComplete(e: ChangeEvent<HTMLInputElement>) {
+    console.log("Completed");
+    console.dir(e.target);
+  }
+
+  function handleDelete(id: number) {
+    console.log("App - Deleting: ", id);
+    setTodos(todos.filter((todo) => todo.id !== id));
+    console.log("Deleting confirmed");
   }
 
   return (
@@ -50,7 +59,11 @@ function App() {
       <div className="todo-wrap">
         <h2>ToDo List</h2>
         <Header onAdd={handleAddTodo} todos={todos} />
-        <List todos={todos} />
+        <List
+          onComplete={handleComplete}
+          onDelete={handleDelete}
+          todos={todos}
+        />
         <Footer todos={todos} />
       </div>
     </div>

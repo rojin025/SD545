@@ -38,7 +38,6 @@ export default function Header(props: HeaderProps) {
           placeholder="Enter task name"
           onChange={handleInputChange}
         />
-        {/* <button className="btn btn-danger">Add</button> */}
       </form>
     </div>
   );
