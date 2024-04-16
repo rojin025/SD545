@@ -1,35 +1,50 @@
 import { ChangeEvent, useState } from "react";
 
-import { User, GithubUser } from "../types/types";
+import { User, GithubUser, SearchResponse } from "../types/types";
+import axios from "axios";
 
 interface Props {
-  onSearch: (users: User[]) => void;
+  onSearch: (value: SearchResponse) => void;
 }
 
 export default function Header({ onSearch }: Props) {
-  const [username, setUsername] = useState("");
+  const [keyword, setKeyword] = useState("");
 
   async function handleSearch() {
-    const response = await fetch(
-      `https://api.github.com/search/users?q=${username}`
-    );
-    const rawdata = await response.json();
-    const data = rawdata.items.map((user: GithubUser) => {
-      const { login, id, avatar_url } = user;
-      return { login, id, avatar_url };
-    });
+    try {
+      const response = await axios.get(
+        `https://api.github.com/search/users?q=${keyword}`
+      );
 
-    if (!response.ok) {
-      throw new Error(data.message || "Something went wrong");
+      const data = response.data.items.map((user: GithubUser) => {
+        const { login, id, avatar_url, html_url } = user;
+        return { login, id, avatar_url, html_url };
+      });
+
+      if (response.status === 200) {
+        onSearch({
+          isFirst: false,
+          isLoading: false,
+          isError: false,
+          users: data,
+        });
+      } else {
+        onSearch({
+          isFirst: false,
+          isLoading: true,
+          isError: false,
+          users: [],
+        });
+      }
+    } catch (e) {
+      onSearch({
+        isFirst: false,
+        isLoading: true,
+        isError: true,
+        users: [],
+      });
     }
-
-    onSearch(data);
   }
-
-  const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setUsername(value);
-  };
 
   return (
     <section className="jumbotron">
@@ -38,9 +53,14 @@ export default function Header({ onSearch }: Props) {
         <input
           type="text"
           placeholder="Enter the name you search"
-          onChange={changeInput}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setKeyword(e.target.value)
+          }
         />
-        &nbsp;<button onClick={handleSearch}>Search</button>
+        &nbsp;
+        <button className="btn btn-primary" onClick={handleSearch}>
+          Search
+        </button>
       </div>
     </section>
   );

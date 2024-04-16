@@ -1,6 +1,14 @@
+export interface SearchResponse {
+  isFirst: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  users: User[];
+}
+
 export interface User {
   login: string;
   id: number;
+  html_url: string;
   avatar_url: string;
 }
 
