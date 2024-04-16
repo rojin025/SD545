@@ -9,7 +9,7 @@ export default function Card({ user }: Props) {
   return (
     <div className="row">
       <div className="card">
-        <a href="https://github.com/reactjs" target="_blank">
+        <a href={avatar_url} target="_blank">
           <img src={avatar_url} style={{ width: "100px" }} />
         </a>
         <p className="card-text">{login}</p>
