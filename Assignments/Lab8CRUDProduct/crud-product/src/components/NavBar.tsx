@@ -1,12 +1,11 @@
 import { NavLink } from "react-router-dom";
+import Logo from "./Logo";
 
 function NavBar() {
   return (
     <nav>
+      <Logo />
       <ul>
-        <li>
-          <NavLink to="/">ProductShop</NavLink>
-        </li>
         <li>
           <NavLink to="/product">Products</NavLink>
         </li>

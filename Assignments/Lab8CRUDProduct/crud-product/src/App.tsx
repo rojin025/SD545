@@ -1,22 +1,25 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useRoutes } from "react-router-dom";
+
+import routes from "./routes";
+import NavBar from "./components/NavBar";
 
 import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
 import Add from "./pages/Add";
-import Product from "./pages/Product";
-import NavBar from "./components/NavBar";
+import Product from "./pages/Products/Products";
+import AppLayout from "./pages/Products/AppLayout";
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="product" element={<Product />} />
+        <Route path="product" element={<AppLayout />} />
         <Route path="Add" element={<Add />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
