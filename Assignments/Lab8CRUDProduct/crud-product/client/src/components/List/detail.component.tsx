@@ -43,7 +43,7 @@ export default function Detail(props: Props) {
           </p>
         </>
       ) : (
-        <h2>please click a product on left side to see detail</h2>
+        <h2>Please selete a product for detail.💡</h2>
       )}
     </div>
   );
