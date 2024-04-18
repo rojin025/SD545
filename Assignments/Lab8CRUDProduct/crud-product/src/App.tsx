@@ -8,6 +8,7 @@ import PageNotFound from "./pages/PageNotFound";
 import Add from "./pages/Add";
 import Product from "./pages/Products/Products";
 import AppLayout from "./pages/Products/AppLayout";
+import ProductDetails from "./pages/Products/Product.Details";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="product" element={<AppLayout />} />
+        <Route path="product/:Id" element={<ProductDetails />} />
         <Route path="Add" element={<Add />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
