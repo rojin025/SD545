@@ -1,15 +1,16 @@
-import React from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
+import { ProductType } from "../../types";
 
-export default function ProductDetails() {
-  const [searchParams, setSearchParams] = useSearchParams();
+interface Props {
+  products: ProductType[];
+}
 
-  const Id = searchParams.get("Id");
-  console.log(Id);
+export default function ProductDetails({ products }: Props) {
+  const { id } = useParams();
+  console.log(id);
   return (
     <div>
-      <h3>Please Selete a Product!</h3>
-      <h3>{Id}</h3>
+      {id ? <h3>Product id : {id}</h3> : <h3>Please Selete a Product!</h3>}
     </div>
   );
 }

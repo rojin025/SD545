@@ -5,34 +5,23 @@ import { ProductType } from "../../types";
 import Product from "./Product";
 import AppLayout from "./AppLayout";
 
-const initialData = [
-  {
-    Title: "Node.js",
-    Id: "SD450",
-    Price: 200,
-    Description: "Back End Development is Awesome!!",
-  },
-  {
-    Title: "React.js",
-    Id: "SD550",
-    Price: 300,
-    Description: "Front End Development is BeasutttiiiiiFULLLL!!",
-  },
-];
+interface Props {
+  products: ProductType[];
+}
 
-function Products() {
-  const [products, setProducts] = useState<ProductType[]>(initialData);
-
+function Products({ products }: Props) {
   return (
     <div>
       <h1>Product List</h1>
       <div>
         {products.map((product) => (
           <>
-            <Link to={`${product.Id}`} className={"btn btn-light"}>
-              <Product key={product.Id} product={product} />
-            </Link>
-            <br />
+            <li key={product.Id}>
+              <Link to={`${product.Id}`} className={"btn btn-light"}>
+                {product.Title}
+              </Link>
+              <br />
+            </li>
           </>
         ))}
       </div>
