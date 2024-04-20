@@ -1,4 +1,4 @@
-const musicService = require('../services/music.service');
+const musicService = require("../services/music.service");
 
 const getSongs = (req, res, next) => {
   try {
@@ -6,6 +6,6 @@ const getSongs = (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
 
 module.exports = { getSongs };

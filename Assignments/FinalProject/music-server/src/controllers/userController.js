@@ -1,4 +1,4 @@
-const userService = require('../services/user.service');
+const userService = require("../services/user.service");
 
 const updateUser = (req, res, next) => {
   try {
@@ -6,6 +6,6 @@ const updateUser = (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
 
 module.exports = { updateUser };

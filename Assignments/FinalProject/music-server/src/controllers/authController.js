@@ -1,4 +1,4 @@
-const authService = require('../services/auth.service');
+const authService = require("../services/auth.service");
 
 const login = (req, res, next) => {
   try {
@@ -7,7 +7,6 @@ const login = (req, res, next) => {
   } catch (error) {
     next(error);
   }
-
-}
+};
 
 module.exports = { login };
