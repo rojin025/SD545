@@ -37,9 +37,9 @@ function Login() {
         throw new Error("Wrong Credential!");
       }
 
-      setErrorMessage("Sign in Success.");
-      const { accessToken } = response.data;
-      sessionStorage.setItem("token", accessToken);
+      const responseData = response.data;
+      console.log(response.data);
+      sessionStorage.setItem("responseData", JSON.stringify(responseData));
       return true;
     } catch (error) {
       setErrorMessage("Wrong Credential!");

@@ -1,20 +1,36 @@
+import { ChangeEvent, useState } from "react";
+import { LoginResponse } from "../../types/types";
 import logo from "../images/logo.jpeg";
 
 import "./playlist.css";
 export default function Playlist() {
-  console.log("Playlist");
-  console.log("Token: ", sessionStorage.token);
+  const [user, setUser] = useState<LoginResponse | null>(null);
+  const [serach, setSearch] = useState<string>("");
+
+  function handleSearch(e: ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value);
+  }
+
+  console.log(sessionStorage);
+  const loginRes = JSON.parse(sessionStorage.responseData);
+
   return (
     <div className="border-line">
       <div className="header">
         {/* <img src={logo} alt="music profile" className="logo" /> */}
-        <input type="search" placeholder="Search..." className="search" />
+        <input
+          type="search"
+          placeholder="Search..."
+          className="search"
+          onChange={handleSearch}
+        />
         <button className="logout">Logout</button>
       </div>
 
       <br />
       <hr className="breakline" />
       <div>
+        <div>{serach && "Hello"}</div>
         <h3 className="song-interest">Songs you may interest</h3>
         <table className="table">
           <tr className="th-headers">
@@ -35,30 +51,6 @@ export default function Playlist() {
             <td className="td-1-bold">2</td>
             <td className="td-2">Smooth Criminal</td>
             <td className="td-2">1999-12-12</td>
-            <td className="td-1">
-              <i className="fa-solid fa-plus"></i>
-            </td>
-          </tr>
-          <tr className="th">
-            <td className="td-1-bold">3</td>
-            <td className="td-2">Ganghum Style</td>
-            <td className="td-2">200-1-02</td>
-            <td className="td-1">
-              <i className="fa-solid fa-plus"></i>
-            </td>
-          </tr>
-          <tr className="th">
-            <td className="td-1-bold">4</td>
-            <td className="td-2">See you soon</td>
-            <td className="td-2">2020-12-01</td>
-            <td className="td-1">
-              <i className="fa-solid fa-plus"></i>
-            </td>
-          </tr>
-          <tr className="th">
-            <td className="td-1-bold">5</td>
-            <td className="td-2">Shape of you</td>
-            <td className="td-2">2015-12-01</td>
             <td className="td-1">
               <i className="fa-solid fa-plus"></i>
             </td>
@@ -88,36 +80,6 @@ export default function Playlist() {
           <tr className="th-playlist">
             <td className="td-playlist-bold">2</td>
             <td className="td-22-playlist">Smooth Criminal</td>
-            <td className="td-actions">
-              {" "}
-              <i className="fa-solid fa-circle-minus"></i>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <i className="fa-solid fa-circle-play"></i>
-            </td>
-          </tr>
-          <tr className="th-playlist">
-            <td className="td-playlist-bold">3</td>
-            <td className="td-22-playlist">Ganghum Style</td>
-            <td className="td-actions">
-              {" "}
-              <i className="fa-solid fa-circle-minus"></i>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <i className="fa-solid fa-circle-play"></i>
-            </td>
-          </tr>
-          <tr className="th-playlist">
-            <td className="td-playlist-bold">4</td>
-            <td className="td-22-playlist">See you soon</td>
-            <td className="td-actions">
-              {" "}
-              <i className="fa-solid fa-circle-minus"></i>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <i className="fa-solid fa-circle-play"></i>
-            </td>
-          </tr>
-          <tr className="th-playlist">
-            <td className="td-playlist-bold">5</td>
-            <td className="td-22-playlist">Shape of you</td>
             <td className="td-actions">
               {" "}
               <i className="fa-solid fa-circle-minus"></i>
