@@ -6,6 +6,7 @@ import { LoginCredentials, LoginResponse } from "../../types/types";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -29,10 +30,14 @@ function Login() {
         credentials
       );
 
+      if (response.status !== 200) {
+        throw new Error("Wrong Credential!");
+      }
+
       const { accessToken } = response.data;
       sessionStorage.setItem("token", accessToken);
-      console.log("Access Token: ", accessToken);
     } catch (error) {
+      setErrorMessage("Wrong Credential!");
       console.error("Error on login:", error);
     }
   }
@@ -70,6 +75,7 @@ function Login() {
               <button className="btn btn-success w-50 py-2 mt-2" type="submit">
                 Sign in
               </button>
+              <div> {errorMessage && <div>{errorMessage}</div>}</div>
             </form>
           </main>
         </body>
