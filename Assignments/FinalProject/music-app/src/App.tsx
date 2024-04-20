@@ -1,4 +1,5 @@
 import Login from "./pages/login/Login";
+import Root from "./routes/root";
 
 function App() {
   return (
@@ -6,7 +7,7 @@ function App() {
       <header className="App-header">
         <h1>Music App</h1>
       </header>
-      <Login />
+      <Root />
     </div>
   );
 }

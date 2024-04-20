@@ -1,9 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 
 import { LoginCredentials, LoginResponse } from "../../types/types";
 
 function Login() {
+  const [loginSuccess, setLoginSuccess] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -19,7 +21,8 @@ function Login() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Submit Req:", username, password);
-    login({ username, password });
+    const successLogin = await login({ username, password });
+    if (successLogin) setLoginSuccess(successLogin);
   };
 
   async function login(credentials: LoginCredentials) {
@@ -34,11 +37,14 @@ function Login() {
         throw new Error("Wrong Credential!");
       }
 
+      setErrorMessage("Sign in Success.");
       const { accessToken } = response.data;
       sessionStorage.setItem("token", accessToken);
+      return true;
     } catch (error) {
       setErrorMessage("Wrong Credential!");
       console.error("Error on login:", error);
+      return false;
     }
   }
 
@@ -77,6 +83,7 @@ function Login() {
               </button>
               <div> {errorMessage && <div>{errorMessage}</div>}</div>
             </form>
+            {loginSuccess && <Navigate to="/playlist" />}
           </main>
         </body>
       </div>
