@@ -1,11 +1,14 @@
-const { musicDB } = require('../data/data')
+const { musicDB } = require("../data/data");
 
-const getSongs = (searchText) => {
-  let songs = musicDB;
-  if (searchText) {
-    songs = musicDB.filter(m => m.title.toLowerCase().includes(searchText.toLowerCase()));
+const getSongs = (searchMusic) => {
+  let musics = musicDB;
+  if (searchMusic) {
+    musics = musicDB.filter((m) =>
+      m.title.toLowerCase().includes(searchMusic.toLowerCase())
+    );
   }
-  return songs;
-}
+
+  return musics;
+};
 
 module.exports = { getSongs };

@@ -1,36 +1,71 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { LoginResponse } from "../../types/types";
 import logo from "../images/logo.jpeg";
 
 import "./playlist.css";
+import axios from "axios";
 export default function Playlist() {
-  const [user, setUser] = useState<LoginResponse | null>(null);
-  const [serach, setSearch] = useState<string>("");
+  const [userRes, setUserRes] = useState<LoginResponse | null>(null);
+  const [search, setSearch] = useState<string>("");
 
-  function handleSearch(e: ChangeEvent<HTMLInputElement>) {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Searching :", search);
+    const successLogin = await handleSearch(search);
+  };
+
+  async function handleSearch(title: string) {
+    try {
+      console.log("handleSerach userRes ---->  ", userRes);
+      const response = await axios.get<LoginResponse>(
+        `http://localhost:4000/api/music?search=${title}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userRes?.accessToken}`,
+          },
+        }
+      );
+
+      if (response.status !== 200) {
+        throw new Error("Wrong Credential!");
+      }
+
+      console.log("Searching Data :", response.data);
+    } catch (e) {
+      console.log("Error - Searching Song Title", e);
+    }
+  }
+
+  function handleSearchInput(e: ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
   }
 
-  console.log(sessionStorage);
-  const loginRes = JSON.parse(sessionStorage.responseData);
+  useEffect(() => {
+    console.log(sessionStorage);
+    const loginRes = JSON.parse(sessionStorage.responseData);
+    setUserRes(loginRes);
+    console.log("!st time : ", userRes);
+  }, []);
 
   return (
     <div className="border-line">
       <div className="header">
         {/* <img src={logo} alt="music profile" className="logo" /> */}
-        <input
-          type="search"
-          placeholder="Search..."
-          className="search"
-          onChange={handleSearch}
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="search"
+            placeholder="Search..."
+            className="search"
+            onChange={handleSearchInput}
+          />
+        </form>
         <button className="logout">Logout</button>
       </div>
 
       <br />
       <hr className="breakline" />
       <div>
-        <div>{serach && "Hello"}</div>
+        <div>{search && "Hello"}</div>
         <h3 className="song-interest">Songs you may interest</h3>
         <table className="table">
           <tr className="th-headers">
