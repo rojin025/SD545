@@ -1,0 +1,55 @@
+/* css for your playlist */
+
+.playlist {
+    margin-left: 5%;
+    font-size: 25px;
+}
+
+.table-playlist {
+    border-collapse: collapse;
+    margin-left: 5%;
+    width: 95%;
+    margin-right: 10px;
+    background-color: rgba(245, 179, 179, 0);
+}
+
+.th-headers-playlist {
+    border: 0.5px solid gainsboro;
+    padding: 10px 20px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.td-playlist-bold {
+    border: 0.5px solid gainsboro;
+    padding: 10px 20px;
+    width: 17%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.td-22-playlist {
+    border: 0.5px solid gainsboro;
+    padding: 10px 20px;
+    width: 48%;
+    text-align: center;
+}
+
+.td-13-playlist {
+    border: 0.5px solid gainsboro;
+    padding: 10px 20px;
+    width: 33%;
+    text-align: center;
+}
+
+.td-actions {
+    border: 0.5px solid gainsboro;
+    padding: 10px 20px;
+    width: 16%;
+    text-align: center;
+}
+
+.th-playlist {
+    border: 0.5px solid gainsboro;
+    padding: 10px 20px;
+}

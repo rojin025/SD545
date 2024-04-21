@@ -1,0 +1,13 @@
+/* css for song playing session */
+.table-playing {
+    margin-left: 5%;
+    width: 95%;
+    margin-right: 10px;
+    background-color: rgba(245, 179, 179, 0);
+    height: 90px;
+}
+
+.tr-headers-playing {
+    border: 0.5px solid gainsboro;
+    padding: 10px 20px;
+}

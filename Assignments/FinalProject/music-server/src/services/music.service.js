@@ -1,6 +1,6 @@
 const { musicDB } = require("../data/data");
 
-const getSongs = (searchMusic) => {
+const getMusics = (searchMusic) => {
   let musics = musicDB;
   if (searchMusic) {
     musics = musicDB.filter((m) =>
@@ -11,4 +11,4 @@ const getSongs = (searchMusic) => {
   return musics;
 };
 
-module.exports = { getSongs };
+module.exports = { getMusics };
