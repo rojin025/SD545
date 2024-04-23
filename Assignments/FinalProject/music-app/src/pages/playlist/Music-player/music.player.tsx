@@ -16,10 +16,13 @@ export default function MusicPlayer({
   currentMusic,
   onCurrentMusic,
 }: Props) {
+  function handlePlay() {
+    console.log("play");
+  }
   function handleNext() {
     console.log("next");
-    console.log("next");
   }
+
   function handlePrevious() {
     console.log("Previous");
   }
@@ -30,15 +33,15 @@ export default function MusicPlayer({
         <tr className="tr-headers-playing">
           <td>
             <AudioPlayer
+              autoPlay
               showSkipControls
               header={currentMusic?.title}
               src={`${URL}${currentMusic?.urlPath}`}
+              // onPlay={handlePlay}
+              onPlay={(e) => console.log("onPlay")}
               onClickNext={handleNext}
               onClickPrevious={handlePrevious}
               hasDefaultKeyBindings={true}
-              // onClickPrevious={handlePrevious}
-
-              // other props here
             />
           </td>
         </tr>

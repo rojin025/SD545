@@ -48,7 +48,7 @@ export default function Header({
   const handleLogout = () => {
     sessionStorage.clear();
     onHandleIsLoggedin(false);
-    navigate("/");
+    navigate("/login");
   };
 
   return (
