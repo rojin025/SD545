@@ -1,22 +1,28 @@
 /* Headers css */
 .header {
     display: flex;
+
+    justify-content: space-between;
+    margin-left: 5%;
     margin-top: 10px;
     margin-left: 5px;
 }
 
 .header .logo {
+    /* flex: 0 0 15%; */
     margin-left: 5%;
-    width: 115px;
-    height: 115px;
+    width: 135px;
+    margin-top: 20px;
+    height: 135px;
     border-radius: 50%;
     border: 2px solid wheat;
+
 }
 
-.search {
-    margin-left: 6%;
-    margin-top: 45px;
-    width: 65%;
+.header .search {
+    /* flex: 0 0 70%; */
+    margin-left: 7%;
+    margin-top: 90px;
     height: 40px;
     background: #ffffffa8;
     border: 3px solid rgba(0, 128, 0, 0.509);
@@ -28,10 +34,11 @@
     padding: 20px 45px 20px 10px
 }
 
-.logout {
+.header .logout {
+    /* flex: 0 0 15%; */
     margin-right: 2%;
-    margin-left: 5%;
-    margin-top: 45px;
+    margin-right: 2%;
+    margin-top: 90px;
     width: 10%;
     height: 50px;
     background: #ffffff38;
@@ -41,6 +48,5 @@
     color: rgb(0, 0, 0);
     font-weight: 500;
     text-align: center;
-
 
 }

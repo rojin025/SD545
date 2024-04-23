@@ -1,14 +1,12 @@
-import Login from "./pages/login/Login";
 import Root from "./routes/root";
-
+import './App.css';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Music App</h1>
-      </header>
+    <>
+      {/* <header className="App-header">
+      </header> */}
       <Root />
-    </div>
+    </>
   );
 }
 

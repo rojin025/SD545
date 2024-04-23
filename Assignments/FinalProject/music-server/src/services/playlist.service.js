@@ -30,6 +30,7 @@ const removeFromPlaylist = (userId, songId) => {
   const index = playlistDB.findIndex(
     (p) => p.songId === songId && p.userId === userId
   );
+
   if (index > -1) {
     playlistDB.splice(index, 1);
   }

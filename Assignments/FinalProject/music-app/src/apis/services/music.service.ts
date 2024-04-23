@@ -1,15 +1,17 @@
-import axios from "axios";
 import http from "../axios";
 
-const getMusics = () => {
-  return http.get("/api/music");
-};
+const accessToken = sessionStorage.getItem("accessToken");
 
-const getMusic = (title: string) => {
-  return http.get(`/api/music?search=${title}`);
-};
-
-export default {
-  getMusics,
-  getMusic,
-};
+export function getMusic(title: string, token: string | undefined) {
+  try {
+    const response = http.get(`/api/music?search=${title}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (e) {
+    console.log("Error fetching music:", e);
+    throw e;
+  }
+}

@@ -4,6 +4,5 @@ export default axios.create({
   baseURL: "http://localhost:4000",
   headers: {
     "content-types": "application/json",
-    Authorization: `Bearer ${sessionStorage}`,
   },
 });

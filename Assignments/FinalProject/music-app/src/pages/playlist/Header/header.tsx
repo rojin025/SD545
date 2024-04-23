@@ -1,39 +1,41 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { getMusic } from "../../../apis/services/music.service";
 import logo from "../../images/logo.jpeg";
+import { MusicList } from "../../../types/types";
 import "./header.css";
-import axios from "axios";
-import { LoginResponse } from "../../../types/types";
 
 interface Props {
   token: string | undefined;
+  updateMusicList: (musicList: MusicList[]) => void;
+  onHandleIsLoggedin: (condition: boolean) => void;
 }
 
-export default function Header({ token }: Props) {
+export default function Header({
+  token,
+  updateMusicList,
+  onHandleIsLoggedin,
+}: Props) {
+  const navigate = useNavigate();
   const [search, setSearch] = useState<string>("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Searching :", search);
-    const successLogin = await handleSearch(search);
+    handleSearch(search);
   };
 
   async function handleSearch(title: string) {
     try {
-      console.log("Header Element token ---->  ", token);
-      const response = await axios.get<LoginResponse>(
-        `http://localhost:4000/api/music?search=${title}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.status !== 200) {
+      const response = await getMusic(title, token);
+      console.log("Get Music API :", response);
+      if (!response.data.length) {
         throw new Error("Error Seraching data.");
       }
 
       console.log("Searching Data :", response.data);
+      updateMusicList(response.data);
     } catch (e) {
       console.log("Error - Searching Song Title", e);
     }
@@ -42,6 +44,12 @@ export default function Header({ token }: Props) {
   function handleSearchInput(e: ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
   }
+
+  const handleLogout = () => {
+    sessionStorage.clear();
+    onHandleIsLoggedin(false);
+    navigate("/");
+  };
 
   return (
     <div>
@@ -55,9 +63,10 @@ export default function Header({ token }: Props) {
             onChange={handleSearchInput}
           />
         </form>
-        <button className="logout">Logout</button>
+        <button className="logout" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
-      <div>{search && "Hello"}</div>
     </div>
   );
 }

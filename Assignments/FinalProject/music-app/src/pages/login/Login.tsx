@@ -1,10 +1,17 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import { FaRegUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 
 import { LoginCredentials, LoginResponse } from "../../types/types";
+import "./login.css";
 
-function Login() {
+interface Props {
+  onHandleIsLoggedin: (condition: boolean) => void;
+}
+
+function Login({ onHandleIsLoggedin }: Props) {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +29,12 @@ function Login() {
     e.preventDefault();
     console.log("Submit Req:", username, password);
     const successLogin = await login({ username, password });
-    if (successLogin) setLoginSuccess(successLogin);
+    if (successLogin) {
+      onHandleIsLoggedin(successLogin);
+      setLoginSuccess(successLogin);
+    }
+    setUsername("");
+    setPassword("");
   };
 
   async function login(credentials: LoginCredentials) {
@@ -39,7 +51,7 @@ function Login() {
 
       const responseData = response.data;
       console.log(response.data);
-      sessionStorage.setItem("responseData", JSON.stringify(responseData));
+      sessionStorage.setItem("accessToken", responseData.accessToken);
       return true;
     } catch (error) {
       setErrorMessage("Wrong Credential!");
@@ -50,42 +62,32 @@ function Login() {
 
   return (
     <>
-      <div className="container d-flex justify-content-center w-400">
-        <body
-          className="d-flex align-items-center m-5 p-5 bg-body-tertiary vsc-initialized"
-          data-new-gr-c-s-check-loaded="14.1168.0"
-          data-gr-ext-installed=""
-          data-new-gr-c-s-loaded="14.1168.0"
-        >
-          <main className="form-signin p-auto m-auto">
-            <form onSubmit={handleSubmit}>
-              <h1 className="h3 mb-3 fw-normal">Log in</h1>
-
-              <div className="form">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Username"
-                  onChange={handleUsernameChange}
-                />
-              </div>
-              <div className="form">
-                <input
-                  type="password"
-                  className="form-control mt-1"
-                  placeholder="Password"
-                  onChange={handlePasswordChange}
-                />
-              </div>
-
-              <button className="btn btn-success w-50 py-2 mt-2" type="submit">
-                Sign in
-              </button>
-              <div> {errorMessage && <div>{errorMessage}</div>}</div>
-            </form>
-            {loginSuccess && <Navigate to="/playlist" />}
-          </main>
-        </body>
+      <div className="wrapper">
+        <form onSubmit={handleSubmit}>
+          <h1 className="text">Please Login</h1>
+          <div className="input-box">
+            <input
+              value={username}
+              onChange={handleUsernameChange}
+              placeholder="Username"
+              required
+            />
+            <FaRegUser className="icon" />
+          </div>
+          <div className="input-box">
+            <input
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Password"
+              required
+            />
+            <FaLock className="icon" />
+          </div>
+          <button type="submit">Login</button>
+          <div> {errorMessage && <div>{errorMessage}</div>}</div>
+        </form>
+        {loginSuccess && <Navigate to="/playlist" />}
       </div>
     </>
   );
