@@ -5,12 +5,15 @@ import UseReducerSimple from "./Q2-UseReduce/useReducer/1.useReducer";
 import SomeReducerApp from "./Q2-UseReduce/useReducer/2.repet";
 import Root from "./Q3-Routers/routerPra1";
 import NavBar from "./Q3-Routers/navBar";
+/** Q1 */
+import MemoHooks from "./Q1-Performace/useMemo";
 
 function App() {
   return (
     <>
       <div>
-        <Root />
+        {/* <Root /> */}
+        <MemoHooks />
         {/* <LoginUseState /> */}
         {/* <LoginUseReducer /> */}
         {/* <CounterUseState /> */}
