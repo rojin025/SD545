@@ -1,11 +1,11 @@
 import { FormEvent, useReducer, useState } from "react";
 
-type StateType = {
+interface StateType {
   username: string;
   password: string;
   error: string;
   isLoggedIn: boolean;
-};
+}
 
 type ActionType = {
   type: string;

@@ -15,9 +15,9 @@ function App() {
     <>
       <div>
         {/* <Root /> */}
-        <UseReducerObj />
+        {/* <UseReducerObj /> */}
         {/* <RootUseParams /> */}
-        {/* <MemoHooks /> */}
+        <MemoHooks />
         {/* <LoginUseState /> */}
         {/* <LoginUseReducer /> */}
         {/* <CounterUseState /> */}
