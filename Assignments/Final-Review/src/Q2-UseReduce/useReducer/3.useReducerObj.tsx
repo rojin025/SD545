@@ -45,6 +45,8 @@ export default function UseReducerObj() {
         setTimeout(() => {
           if (username === "user" && password === "pwd123") {
             resolve("success");
+            // alert("Success");
+            console.log("Success");
           } else {
             reject("fail Loggin!");
           }
@@ -66,7 +68,7 @@ export default function UseReducerObj() {
             onChange={(e) =>
               dispatch({
                 type: "username",
-                payload: { ...state, username: e.currentTarget.value },
+                payload: { ...state, username: e.target.value },
               })
             }
           />
