@@ -1,37 +1,24 @@
-// export default [
-//   {
-//     path: "/home",
-//     element: <Home />,
-//     children: [
-//       {
-//         path: "messages",
-//         element: <Message />,
-//         children: [
-//           {
-//             path: "detail/:id/:title/:content",
-//             element: <Detail />,
-//           },
-//         ],
-//       },
-//     ],
-//   },
-// ];
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import PageNotFound from "../PageNotFound";
+import Prod from "./Prod";
+import Items from "./Items";
+import Details from "./Details";
 
-// export default function Message() {
-//   //messages state here
-//   return (
-//     <div>
-//       <ul>
-//         {messages.map((msg) => (
-//           <li>
-//             <Link to={`detail/${msg.id}/${msg.title}/${msg.content}`}>
-//               {msg.title}
-//             </Link>
-//           </li>
-//         ))}
-//       </ul>
-//       <hr />
-//       <Outlet />
-//     </div>
-//   );
-// }
+function RootUseParams() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Prod />} />
+        {/* <Route path="/" element={<Navigate to="prod" />} /> */}
+        <Route path="products" element={<Prod />}>
+          <Route path="items" element={<Items />}>
+            <Route path="details/:id/:title/:content" element={<Details />} />
+          </Route>
+        </Route>
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default RootUseParams;
